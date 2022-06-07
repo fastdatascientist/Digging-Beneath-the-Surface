@@ -12372,7 +12372,7 @@ div.notification_widget.info,
  background: transparent;
  background-color: transparent;
  margin-bottom: 0px !important;
- margin-top: 8px !important;
+ margin-top: 11px !important;
  vertical-align: middle !important;
 }
 #modal_indicator {
@@ -12453,6 +12453,9 @@ div.notification_widget.info,
   -webkit-transform: scale(1.0,1.0);
   opacity: 0.8;
  }
+}
+i#kernel_indicator_icon {
+ vertical-align: sub;
 }
 div.notification_widget.info,
 .notification_widget.info,
@@ -13286,8 +13289,8 @@ div.prompt,
  padding-left: 0px;
  padding-right: 1px;
  text-align: right !important;
- min-width: 9.5ex !important;
- width: 9.5ex !important;
+ min-width: 8ex !important;
+ width: 8ex !important;
 }
 div.prompt.input_prompt {
  font-size: 9pt !important;
@@ -13297,8 +13300,8 @@ div.prompt.input_prompt {
  border-bottom-left-radius: 0px;
  border-bottom-right-radius: 0px;
  padding-right: 3px;
- min-width: 9.5ex;
- width: 9.5ex !important;
+ min-width: 8ex;
+ width: 8ex !important;
 }
 div.cell.code_cell .input_prompt {
  border-right: 2px solid rgba(240,147,43,.50);
@@ -13377,8 +13380,8 @@ div.prompt.output_prompt {
  border-top-right-radius: 0px;
  border-top-left-radius: 0px;
  border-bottom-right-radius: 0px;
- min-width: 9.5ex !important;
- width: 9.5ex !important;
+ min-width: 8ex !important;
+ width: 8ex !important;
  border-right: 2px solid transparent;
 }
 div.out_prompt_overlay.prompt {
@@ -13390,8 +13393,8 @@ div.out_prompt_overlay.prompt {
  border-top-right-radius: 0px;
  border-top-left-radius: 0px;
  border-bottom-right-radius: 0px;
- min-width: 9.5ex !important;
- width: 9.5ex !important;
+ min-width: 8ex !important;
+ width: 8ex !important;
  border-right: 2px solid transparent;
  color: transparent;
 }
@@ -13404,8 +13407,8 @@ div.out_prompt_overlay.prompt:hover {
  -moz-border-radius: 2px;
  border-top-right-radius: 0px;
  border-top-left-radius: 0px;
- min-width: 9.5ex !important;
- width: 9.5ex !important;
+ min-width: 8ex !important;
+ width: 8ex !important;
  border-right: 2px solid #f7f7f7 !important;
 }
 div.cell.code_cell .output_prompt {
@@ -13503,8 +13506,8 @@ div.cell.text_cell.rendered .prompt {
  font-weight: normal;
  color: transparent !important;
  text-align: right !important;
- min-width: 9.5ex !important;
- width: 9.5ex !important;
+ min-width: 8ex !important;
+ width: 8ex !important;
  background-color: #ffffff;
  border-right: 2px solid transparent;
  border-left: 5px solid #ffffff;
@@ -13515,8 +13518,8 @@ div.cell.text_cell.unrendered .prompt {
  font-weight: normal;
  color: transparent !important;
  text-align: right !important;
- min-width: 9.5ex !important;
- width: 9.5ex !important;
+ min-width: 8ex !important;
+ width: 8ex !important;
  border-right: 2px solid transparent;
  border-left: 5px solid #ffffff;
 }
@@ -13656,33 +13659,30 @@ div.rendered_html h5 {
 }
 .rendered_html h2,
 .text_cell_render h2 {
- color: #126dce;
+ text-align: left;
  font-size: 170%;
- text-align: center;
+ color: #3f3d46;
  font-style: normal;
  font-weight: normal;
 }
 .rendered_html h3,
 .text_cell_render h3 {
- color: #126dce;
  font-size: 140%;
- text-align: center;
+ color: #3f3d46;
  font-style: normal;
  font-weight: normal;
 }
 .rendered_html h4,
 .text_cell_render h4 {
- color: #126dce;
  font-size: 110%;
- text-align: center;
+ color: #3f3d46;
  font-style: normal;
  font-weight: normal;
 }
 .rendered_html h5,
 .text_cell_render h5 {
- color: #126dce;
  font-size: 100%;
- text-align: center;
+ color: #2f2f2f;
  font-style: normal;
  font-weight: normal;
 }
@@ -14174,7 +14174,6 @@ div.collapsible_headings_toggle .fa-caret-right:before {
 #navigate_menu a,
 .toc {
  color: #303030 !important;
- font-size: 9.5pt !important;
 }
 #toc li > span:hover {
  background-color: #d4d4d4 !important;
@@ -14183,11 +14182,9 @@ div.collapsible_headings_toggle .fa-caret-right:before {
 #navigate_menu a:hover,
 .toc {
  color: #1c1c1c !important;
- font-size: 9.5pt !important;
 }
 #toc-wrapper .toc-item-num {
  color: #ff7823 !important;
- font-size: 9.5pt !important;
 }
 input.raw_input {
  font-family: monospace, monospace;
@@ -14980,11 +14977,11 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Hello! My name is Ben Johnson.</p>
 <p>&nbsp;</p>
-<p>I'm a data scientist in the Inventory Management Research group within <a href="https://www.caterpillar.com/">Caterpillar Inc</a>. Most of my time is spent developing new optimization and simulation techniques that improve forecasting, streamline material flows, and more efficiently plan aftermarket parts. I also frequently develop data visualizations and communicate key results to our partners.</p>
+<p>I'm an Analytics Team Lead in the Inventory Management Research group within <a href="https://www.caterpillar.com/">Caterpillar Inc</a>. Most of my work experience has been in developing new optimization and simulation techniques that improve forecasting, streamline material flows, and more efficiently plan aftermarket parts. Within the past several years, I've moved into a team lead role to coach junior data scientists and led analytics projects.</p>
 <p>&nbsp;</p>
 <p>My academic background is in industrial engineering and engineering management. I hold undergraduate and graduate degrees from the <a href="https://www.sdsmt.edu/">South Dakota School of Mines &amp; Technology</a>. My education has immensely benefitted me in my career thus far, and I would recommend the school for anybody interested in STEM fields.</p>
 <p>&nbsp;</p>
-<p>I created this blog in order to publish personal projects that I have developed in my free time. This both encourages me to further advance my technical skills (Python/R/SAS/Tableau) as well as my communication ability.</p>
+<p>I created this blog in 2018 to publish personal projects that I have developed in my free time. This both encourages me to further advance my technical skills (Python/R/SAS/Tableau) as well as my communication ability.</p>
 <p>&nbsp;</p>
 <p>Hope you enjoy the articles!</p>
 
@@ -15004,9 +15001,9 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li><a href="http://elevatechurch.org/">Elevate Church</a> -- Ben plays electric/acoustic/bass for the worship team, and Bri is a leader on the Vibe team</li>
-<li><a href="http://www.mortonedc.org/news/be-a-morton-mentor">Morton Mentor</a> -- Ben is a mentor for three Morton High School students for the 2017-2018 school year</li>
-<li><a href="http://www.tapsshelter.org/volunteers">TAPS Animal Shelter</a> -- Bri helps take care of cats and dogs at the local animal shelter</li>
+<li><a href="http://elevatechurch.org/">Elevate Church</a> -- Ben is a leader within Elevate's youth group. Ben has also served on Parking, Welcome Home, and playing electric/acoustic/bass for the worship team</li>
+<li><a href="http://www.mortonedc.org/news/be-a-morton-mentor">Morton Mentor</a> -- Ben has mentored Morton High School students since the 2017-2018 school year as part of the Morton Mentor Program led by the Chamber of Commerce.</li>
+<li><a href="https://www.ramseysolutions.com/ramseyplus/financial-peace">Financial Peace University</a> -- Ben is passionate about personal finance education and has coordinated Financial Peace University courses beginning in 2020.</li>
 </ul>
 
 </div>
