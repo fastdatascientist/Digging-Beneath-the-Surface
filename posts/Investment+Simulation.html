@@ -14991,6 +14991,14 @@ div#notebook {
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Import-Functions-and-Read-Historical-S&amp;P-500-Index-Returns">Import Functions and Read Historical S&amp;P 500 Index Returns<a class="anchor-link" href="#Import-Functions-and-Read-Historical-S&amp;P-500-Index-Returns">&#182;</a></h3>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[272]:</div>
@@ -15104,6 +15112,14 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Filter-for-last-50-years">Filter for last 50 years<a class="anchor-link" href="#Filter-for-last-50-years">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Let's limit our dataset to only include the last 50 years of returns.</p>
 
 </div>
@@ -15200,6 +15216,14 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Calculate-Total-Investment-using-Contributions-and-Time-Horizon">Calculate Total Investment using Contributions and Time Horizon<a class="anchor-link" href="#Calculate-Total-Investment-using-Contributions-and-Time-Horizon">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>In addition to the rates of return, our investment growth will also be dependendent on our contributions and our investment horizon. For simplicity, let's start by assuming constant contributions of $X per year for Y years.</p>
 
 </div>
@@ -15239,6 +15263,14 @@ div#notebook {
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Run-a-Simulation-Using-Historical-Return-Rates">Run a Simulation Using Historical Return Rates<a class="anchor-link" href="#Run-a-Simulation-Using-Historical-Return-Rates">&#182;</a></h3>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
@@ -15371,6 +15403,14 @@ The rate of return for Year 30 = 26.31%
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Run-Many-Simulations-to-Create-Ranged-Estimates">Run Many Simulations to Create Ranged Estimates<a class="anchor-link" href="#Run-Many-Simulations-to-Create-Ranged-Estimates">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>While we have one estimate of our potential investments, itwould be more meaningful to run numerous simulations to get a better idea of the variability. We'll modify our previous code to easily run S number of scenarios.</p>
 
 </div>
@@ -15426,6 +15466,14 @@ dtype: float64</pre>
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Summary-statistics">Summary statistics<a class="anchor-link" href="#Summary-statistics">&#182;</a></h3>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
@@ -15544,12 +15592,20 @@ Reminder: Our contributions over 30 years was:       $180,000.00
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Our median estimate yielded over +\$500K (+282%) growth across our investing horizon! Even when looking at worst case scenarios, we still experienced growth in over 98% of the simulated scenarios. On the flip side, over 25% of scenarios yielded a final balance over \\$1M (+\$820K growth). Pretty darn good for only \\$180K in contributions!
-&nbsp;</p>
-<p>Although not mentioned to this point, there are some major assumptions made throughout this analyis. The biggest two being assumptions that yearly rates of return are independent from one another and that future rates will mirror historical returns. Investors have quarreled over these assumptions for years, and it doesn't seem like the discussion is going away anytime soon. That being said, the numbers in this analysis seem to indicate positive results even if you dialed back your expectations from the estimated median to a lower percentile. It's always a great time to invest for your future!
-&nbsp;</p>
-<p>That's all for today - keep your eyes peeled for some brand new topics beginning in July!
-&nbsp;</p>
+<h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Our median estimate yielded over +\$500K (+282%) growth across our investing horizon! Even when looking at worst case scenarios, we still experienced growth in over 98% of the simulated scenarios. On the flip side, over 25% of scenarios yielded a final balance over \\$1M (+\$820K growth). Pretty darn good for only \\$180K in contributions!</p>
+<p>&nbsp;</p>
+<p>Although not mentioned to this point, there are some major assumptions made throughout this analyis. The biggest two being assumptions that yearly rates of return are independent from one another and that future rates will mirror historical returns. Investors have quarreled over these assumptions for years, and it doesn't seem like the discussion is going away anytime soon. That being said, the numbers in this analysis seem to indicate positive results even if you dialed back your expectations from the estimated median to a lower percentile. It's always a great time to invest for your future!</p>
+<p>&nbsp;</p>
+<p>That's all for today - keep your eyes peeled for some brand new topics beginning in July!</p>
+<p>&nbsp;</p>
 <p>Until next time,
 &nbsp;</p>
 <p>Ben</p>
