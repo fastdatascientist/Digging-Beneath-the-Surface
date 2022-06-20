@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>posts</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>US National Park Optimal Route</title><script src="https://unpkg.com/jupyter-js-widgets@2.0.*/dist/embed.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -14957,8 +14957,8 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="https://fastdatascientist.github.io/Digging-Beneath-the-Surface/">Home</a></p>
-<p><a href="https://fastdatascientist.github.io/Digging-Beneath-the-Surface//author.html">About Me</a></p>
+<p><em>Benjamin Johnson</em></p>
+<p><em>June 20, 2022</em></p>
 
 </div>
 </div>
@@ -14967,13 +14967,865 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="June-2022">June 2022<a class="anchor-link" href="#June-2022">&#182;</a></h3><p><a href="https://fastdatascientist.github.io/Digging-Beneath-the-Surface//posts/Investment+Simulation.html">Investment Simulator</a>
+<p><a href="https://fastdatascientist.github.io/Digging-Beneath-the-Surface/">Home</a></p>
+<p><a href="https://fastdatascientist.github.io/Digging-Beneath-the-Surface/author.html">About Me</a></p>
+<p><a href="https://fastdatascientist.github.io/Digging-Beneath-the-Surface/posts.html">Previous Posts</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="US-National-Park-Optimal-Route">US National Park Optimal Route<a class="anchor-link" href="#US-National-Park-Optimal-Route">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It's summertime, which means family vacations! The in-laws are coming to visit for 4th of July, so I thought I'd work on a problem for them. My mother-in-law has a goal of visiting every US National Park. That got me thinking - how many parks are there, and what would be the optimal path if we wanted to stop by each one on a single trip? Gas isn't cheap these days ($5.21 / gal at Kroger today), so let's find an optimal path!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Import-Statements-and-file-read-in">Import Statements and file read-in<a class="anchor-link" href="#Import-Statements-and-file-read-in">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Users\Benjamin\Digging Beneath the Surface\data\US National Parks.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There are &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; US National Parks&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>There are 63 US National Parks
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[36]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Area</th>
+      <th>Recreation visitors</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Acadia</td>
+      <td>44.35</td>
+      <td>-68.21</td>
+      <td>49,071.40 acres (198.6 km2)</td>
+      <td>4,069,098</td>
+      <td>Covering most of Mount Desert Island and other...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>American Samoa</td>
+      <td>-14.25</td>
+      <td>-170.68</td>
+      <td>8,256.67 acres (33.4 km2)</td>
+      <td>8,495</td>
+      <td>The southernmost national park is on three Sam...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Arches</td>
+      <td>38.68</td>
+      <td>-109.57</td>
+      <td>76,678.98 acres (310.3 km2)</td>
+      <td>1,806,865</td>
+      <td>This site features more than 2,000 natural san...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Badlands</td>
+      <td>43.75</td>
+      <td>-102.50</td>
+      <td>242,755.94 acres (982.4 km2)</td>
+      <td>1,224,226</td>
+      <td>The Badlands are a collection of buttes, pinna...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Big Bend</td>
+      <td>29.25</td>
+      <td>-103.25</td>
+      <td>801,163.21 acres (3,242.2 km2)</td>
+      <td>581,220</td>
+      <td>Named for the prominent bend in the Rio Grande...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create a list of US National Parks</span>
+<span class="n">parks</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">parks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;</span><span class="se">\xa0</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Our input file contains 63 rows (one per park), consistenting of latitude and longitude.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This route problem actually has a common name - the Traveling Salesperson problem. Given a list of locations and distances between each pair, our goal is to find the shortest possible route that visits each site exactly once and then returns to the origin. Python actually has a special library for this type of problem, so we'll test out how it works.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Import-TSP-library-and-test-with-sample-data">Import TSP library and test with sample data<a class="anchor-link" href="#Import-TSP-library-and-test-with-sample-data">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">python_tsp.heuristics</span> <span class="k">import</span> <span class="n">solve_tsp_simulated_annealing</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I created 4 sample locations and randomly generated distances between them.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span>  <span class="mi">6</span><span class="p">],</span> <span class="c1"># Location 0</span>
+    <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">],</span> <span class="c1"># Location 1</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">4</span><span class="p">],</span> <span class="c1"># Location 2</span>
+    <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># Location 3</span>
+<span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's use a function to determine the optimal path and total distance.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">permutation</span><span class="p">,</span> <span class="n">distance</span> <span class="o">=</span> <span class="n">solve_tsp_simulated_annealing</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">permutation</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[0, 3, 1, 2]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>10
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The optimal path for our sample data is Location 0 -&gt; 3 -&gt; 1 -&gt; 2 -&gt; 0, resulting in a total trip of 10 miles.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now that we've tested this out, let's apply this logic to our park problem. But first, we need to calculate the distances between parks.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">python_tsp.distances</span> <span class="k">import</span> <span class="n">great_circle_distance_matrix</span>
+
+<span class="n">df2</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">,</span><span class="s1">&#39;Longitude&#39;</span><span class="p">]]</span>
+<span class="n">convert_m_to_mi</span> <span class="o">=</span> <span class="mf">1609.34</span>
+
+<span class="n">distances</span> <span class="o">=</span> <span class="n">great_circle_distance_matrix</span><span class="p">(</span><span class="n">df2</span><span class="p">)</span> <span class="o">/</span> <span class="n">convert_m_to_mi</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[   0.         7515.11839837 2151.84963114 ... 2061.2473651
+  2664.29848316 2363.88355911]
+ [7515.11839837    0.         5373.90862905 ... 5540.76510007
+  4891.58628683 5162.34662542]
+ [2151.84963114 5373.90862905    0.         ...  411.83432884
+   541.68764883  212.11400352]
+ ...
+ [2061.2473651  5540.76510007  411.83432884 ...    0.
+   660.74153156  521.5653882 ]
+ [2664.29848316 4891.58628683  541.68764883 ...  660.74153156
+     0.          355.07283509]
+ [2363.88355911 5162.34662542  212.11400352 ...  521.5653882
+   355.07283509    0.        ]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Our TSP package has an extremely useful function to calculate distances between two coordinates using the <a href="https://www.geeksforgeeks.org/haversine-formula-to-find-distance-between-two-points-on-a-sphere/">Haversine Formula</a>. We're making a couple assumptions with this method, however:</p>
+<ul>
+<li>The Haversine Formula finds the distance between two points on a sphere. The Earth is not a perfect sphere, so these numbers are approximate.</li>
+<li>We're also not accounting for the actual travel distance by plane, train or automobile. I was too lazy to look up the actual distances in Google Maps (1,953 unique searches). Maybe one day I'll revisit this problem by pulling this data systematically through an application programming interface (API).</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next, let's feed our distances into our TSP solver.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">permutation</span><span class="p">,</span> <span class="n">distance</span> <span class="o">=</span> <span class="n">solve_tsp_simulated_annealing</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### Find the permutation names rather than just the row index</span>
+<span class="n">permutation2</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">permutation</span><span class="p">:</span>
+    <span class="n">permutation2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;</span><span class="se">\xa0</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Show-optimal-path">Show optimal path<a class="anchor-link" href="#Show-optimal-path">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[70]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The optimal path is:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">permutation2</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Park number &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;:     &quot;</span> <span class="o">+</span> <span class="n">value</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The optimal path is:
+Park number 0:     Acadia
+Park number 1:     Shenandoah
+Park number 2:     New River Gorge
+Park number 3:     Cuyahoga Valley
+Park number 4:     Isle Royale
+Park number 5:     Voyageurs
+Park number 6:     Theodore Roosevelt
+Park number 7:     Glacier
+Park number 8:     Yellowstone
+Park number 9:     Grand Teton
+Park number 10:     Wind Cave
+Park number 11:     Badlands
+Park number 12:     Rocky Mountain
+Park number 13:     Great Sand Dunes
+Park number 14:     Black Canyon of the Gunnison
+Park number 15:     Mesa Verde
+Park number 16:     Arches
+Park number 17:     Canyonlands
+Park number 18:     Capitol Reef
+Park number 19:     Bryce Canyon
+Park number 20:     Zion
+Park number 21:     Great Basin
+Park number 22:     Kings Canyon
+Park number 23:     Sequoia
+Park number 24:     Pinnacles
+Park number 25:     Yosemite
+Park number 26:     Lassen Volcanic
+Park number 27:     Redwood
+Park number 28:     Crater Lake
+Park number 29:     Mount Rainier
+Park number 30:     Olympic
+Park number 31:     North Cascades
+Park number 32:     Glacier Bay
+Park number 33:     Wrangell–St.Elias
+Park number 34:     Kenai Fjords
+Park number 35:     Denali
+Park number 36:     Gates of the Arctic
+Park number 37:     Kobuk Valley
+Park number 38:     Lake Clark
+Park number 39:     Katmai
+Park number 40:     Haleakal
+Park number 41:     Hawaii Volcanoes
+Park number 42:     American Samoa
+Park number 43:     Channel Islands
+Park number 44:     Joshua Tree
+Park number 45:     Death Valley
+Park number 46:     Grand Canyon
+Park number 47:     Petrified Forest
+Park number 48:     Saguaro
+Park number 49:     White Sands
+Park number 50:     Guadalupe Mountains
+Park number 51:     Carlsbad Caverns
+Park number 52:     Big Bend
+Park number 53:     Hot Springs
+Park number 54:     Gateway Arch
+Park number 55:     Indiana Dunes
+Park number 56:     Mammoth Cave
+Park number 57:     Great Smoky Mountains
+Park number 58:     Congaree
+Park number 59:     Dry Tortugas
+Park number 60:     Everglades
+Park number 61:     Biscayne
+Park number 62:     Virgin Islands
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[65]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total distance covered for the optimal path was &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:,.0f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">distance</span><span class="p">)))</span> <span class="o">+</span> <span class="s2">&quot; miles.&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Total distance covered for the optimal path was 26,555 miles.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We glossed over this earlier, but there are a few notable parks that are much further away than the others. Firstly, Alaska has a whopping eight parks alone; considering that the minimum distance from an Alaskan to non-Alaska park is 1,718 miles (between Gates of the Arctic and Olympic), it probably isn't feasible to include the Alaskan parks on our road trip. Even further away are the two Hawaiian parks which are over 2,300 miles away from the nearest parks in California. And lastly, the national park in American Samoa is 2,551 additional miles from the Hawaiaan parks. Since driving to these parks is infeasible (unless a <a href="https://www.youtube.com/watch?v=D1MDwVRgoQc">Lotus Esprit</a> is available to rent), let's drop these parks from our data and re-run the analysis.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### Create a scatterplot to visualize park locations</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Alaska, Hawaii and American Samoa parks are visible on the far left (11 total locations), and Virgin Islands park is in the bottom right (we'll drop this location too)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Drop-Parks-Outside-Continental-US-and-Re-run-TSP">Drop Parks Outside Continental US and Re-run TSP<a class="anchor-link" href="#Drop-Parks-Outside-Continental-US-and-Re-run-TSP">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[91]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;Longitude &gt; -130 and Latitude &gt; 20&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[92]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### Create new scatterplot to ensure records were removed</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[93]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">great_circle_distance_matrix</span><span class="p">(</span><span class="n">df2</span><span class="p">[[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">,</span><span class="s1">&#39;Longitude&#39;</span><span class="p">]])</span> <span class="o">/</span> <span class="n">convert_m_to_mi</span>
+<span class="n">permutation</span><span class="p">,</span> <span class="n">distance</span> <span class="o">=</span> <span class="n">solve_tsp_simulated_annealing</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
+
+<span class="n">permutation2</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">permutation</span><span class="p">:</span>
+    <span class="n">permutation2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;</span><span class="se">\xa0</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[94]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The optimal path is:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">permutation2</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Park number &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;:     &quot;</span> <span class="o">+</span> <span class="n">value</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The optimal path is:
+Park number 0:     Acadia
+Park number 1:     Cuyahoga Valley
+Park number 2:     Mammoth Cave
+Park number 3:     Gateway Arch
+Park number 4:     Indiana Dunes
+Park number 5:     Isle Royale
+Park number 6:     Voyageurs
+Park number 7:     Theodore Roosevelt
+Park number 8:     Badlands
+Park number 9:     Wind Cave
+Park number 10:     Rocky Mountain
+Park number 11:     Grand Teton
+Park number 12:     Yellowstone
+Park number 13:     Glacier
+Park number 14:     North Cascades
+Park number 15:     Olympic
+Park number 16:     Mount Rainier
+Park number 17:     Crater Lake
+Park number 18:     Redwood
+Park number 19:     Lassen Volcanic
+Park number 20:     Yosemite
+Park number 21:     Kings Canyon
+Park number 22:     Sequoia
+Park number 23:     Pinnacles
+Park number 24:     Channel Islands
+Park number 25:     Joshua Tree
+Park number 26:     Death Valley
+Park number 27:     Great Basin
+Park number 28:     Zion
+Park number 29:     Grand Canyon
+Park number 30:     Bryce Canyon
+Park number 31:     Capitol Reef
+Park number 32:     Canyonlands
+Park number 33:     Arches
+Park number 34:     Black Canyon of the Gunnison
+Park number 35:     Great Sand Dunes
+Park number 36:     Mesa Verde
+Park number 37:     Petrified Forest
+Park number 38:     Saguaro
+Park number 39:     White Sands
+Park number 40:     Guadalupe Mountains
+Park number 41:     Carlsbad Caverns
+Park number 42:     Big Bend
+Park number 43:     Hot Springs
+Park number 44:     Dry Tortugas
+Park number 45:     Everglades
+Park number 46:     Biscayne
+Park number 47:     Congaree
+Park number 48:     Great Smoky Mountains
+Park number 49:     New River Gorge
+Park number 50:     Shenandoah
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[95]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total distance covered for the optimal path was &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:,.0f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">distance</span><span class="p">)))</span> <span class="o">+</span> <span class="s2">&quot; miles.&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Total distance covered for the optimal path was 11,881 miles.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The total distance needed to visit the continental US parks came out to be only 11,881 miles compared to 26,555 miles when we were including the Alaskan + island locations. Since a key assumption of our route optimization is for the starting and ending points to be the same, we can choose to start our roadtrip from any of the 50 parks. In the case of my in-laws, they would likely begin with Wind Cave (Park #9 in our list) before moving onto Grand Teton, Yellowstone, and all the way thru the list ending with the Badlands.
 &nbsp;</p>
-<p><a href="https://fastdatascientist.github.io/Digging-Beneath-the-Surface//posts/US+National+Park+Optimal+Route.html">US National Park Optimal Route</a></p>
-<p>&nbsp;</p>
-<h3 id="March-2018">March 2018<a class="anchor-link" href="#March-2018">&#182;</a></h3><p><a href="https://fastdatascientist.github.io/Digging-Beneath-the-Surface//posts/Fantasy+Baseball+Parameter+Optimization.html">Parameter Optimization for Bill Bergen Fantasy Baseball</a></p>
-<p>&nbsp;</p>
-<h3 id="February-2018">February 2018<a class="anchor-link" href="#February-2018">&#182;</a></h3><p><a href="https://fastdatascientist.github.io/Digging-Beneath-the-Surface//posts/MLB+2017+simulation.html">Major League Baseball Predictions</a></p>
+<p>I hope you enjoyed this month's problem! Look for another problem to be solved in mid-to-late August. 
+&nbsp;</p>
+<p>Until next time,</p>
+<p>&nbsp;
+Ben</p>
 
 </div>
 </div>
@@ -14983,6 +15835,10 @@ div#notebook {
 </body>
 
  
+
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {}, "version_major": 2, "version_minor": 0}
+</script>
 
 
 </html>
