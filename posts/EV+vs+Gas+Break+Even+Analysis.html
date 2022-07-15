@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>posts</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>EV vs Gas Break Even Analysis</title><script src="https://unpkg.com/jupyter-js-widgets@2.0.*/dist/embed.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -14957,8 +14957,8 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="https://fastdatascientist.github.io/Digging-Beneath-the-Surface/">Home</a></p>
-<p><a href="https://fastdatascientist.github.io/Digging-Beneath-the-Surface//author.html">About Me</a></p>
+<p><em>Benjamin Johnson</em></p>
+<p><em>July 15, 2022</em></p>
 
 </div>
 </div>
@@ -14967,15 +14967,535 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="July-2022">July 2022<a class="anchor-link" href="#July-2022">&#182;</a></h3><p><a href="https://fastdatascientist.github.io/Digging-Beneath-the-Surface//posts/EV+vs+Gas+Break+Even+Analysis.html">EV vs Gas Break Even Analysis</a></p>
-<p>&nbsp;</p>
-<h3 id="June-2022">June 2022<a class="anchor-link" href="#June-2022">&#182;</a></h3><p><a href="https://fastdatascientist.github.io/Digging-Beneath-the-Surface//posts/Investment+Simulation.html">Investment Simulator</a>
+<p><a href="https://fastdatascientist.github.io/Digging-Beneath-the-Surface/">Home</a></p>
+<p><a href="https://fastdatascientist.github.io/Digging-Beneath-the-Surface/author.html">About Me</a></p>
+<p><a href="https://fastdatascientist.github.io/Digging-Beneath-the-Surface/posts.html">Previous Posts</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Electric-Vehicle-(EV)-vs-Gas-Break-Even-Analysis">Electric Vehicle (EV) vs Gas Break-Even Analysis<a class="anchor-link" href="#Electric-Vehicle-(EV)-vs-Gas-Break-Even-Analysis">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This year has been full of gloom-and-doom headlines regarding the economy. While I intend to dig into a history behind bear markets in a future article, today I'd like to focus on the spike in gas prices. The average price per gallon in Illinois had been hovering in the low-to-mid \$3's in 2021 and into early 2022, but it's jumped all the way up past $5. At the same time, auto manufacturers have been releasing an increased number of electric vehicle (EV) options. Although the purchase prices are steep, the operating and maintenance cost differential between gas and EV vehicles are higher than ever. Today, let's run a break-even analysis to see the long term cost benefits of purchasing an EV.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Purchase-Prices">Purchase Prices<a class="anchor-link" href="#Purchase-Prices">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Purchase Prices for EV and Gas</span>
+<span class="n">ev_purch</span> <span class="o">=</span> <span class="mi">48490</span>
+<span class="n">gas_purch</span> <span class="o">=</span> <span class="mi">33950</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Our first two variables are the purchase prices for our sample gas and electric powered vehicles. I selected a Mercedes-Benz A-Class and Tesla Model 3, both falling into the luxury sedan category.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Estimated-Usage">Estimated Usage<a class="anchor-link" href="#Estimated-Usage">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Assume we drive this many miles per year</span>
+<span class="n">yearly_mi</span> <span class="o">=</span> <span class="mi">15000</span>  
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next, we specify the number of miles we plan to drive each year.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Gas-/-Charging-Cost-Factors">Gas / Charging Cost Factors<a class="anchor-link" href="#Gas-/-Charging-Cost-Factors">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Gas / Electricity Cost Parameters</span>
+<span class="n">gas_per_gal</span> <span class="o">=</span> <span class="mf">5.15</span>     <span class="c1"># Cost per gallon at the gas station</span>
+<span class="n">gas_mpg</span>     <span class="o">=</span> <span class="mi">27</span>       <span class="c1"># 25 city / 35 highway miles per gallon</span>
+<span class="n">charge_cpm</span>  <span class="o">=</span> <span class="mf">0.041</span>    <span class="c1"># Estimated cost per mile for charging the EV</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We'll use the quoted gas mileage for the Mercedes, current gas price, and approximate charging cost per mile for the Tesla to estimate our yearly energy costs to power the vehicles.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Maintenance-Factors">Maintenance Factors<a class="anchor-link" href="#Maintenance-Factors">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Maintenance Factors</span>
+<span class="n">gas_maint</span> <span class="o">=</span> <span class="mf">0.0955</span>       <span class="c1"># Cost per mile for maintenance on gas vehicle</span>
+<span class="n">ev_maint</span>  <span class="o">=</span> <span class="mf">0.0777</span>       <span class="c1"># Cost per mile for maintenance on EV</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Our next factors are related to maintenance. From some online research, estimates indicated that EVs can expected ~20% less maintenance due to fewer moving parts.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Depreciation-Factors">Depreciation Factors<a class="anchor-link" href="#Depreciation-Factors">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Depreciation Factors</span>
+<span class="n">gas_depr</span> <span class="o">=</span> <span class="mf">0.13</span>        <span class="c1"># Yearly avg rate of depreciation for gas vehicle</span>
+<span class="n">ev_depr</span>  <span class="o">=</span> <span class="mf">0.15</span>        <span class="c1"># Yearly avg rate of depreciation for EV</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We also need to account for depreciation if we were to sell the vehicles. While the last several years have actually seen used cars increase in value due to high demand &amp; low supply, vehicles typically see significant depreciation over time. For simplicity, we're using average depreciation rates per year. The EV depreciation factor is set slightly higher due to initial government incentives and battery replacement over time.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Rate-of-Return">Rate of Return<a class="anchor-link" href="#Rate-of-Return">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[91]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Rate of Return for difference in purchase price</span>
+<span class="n">ror</span> <span class="o">=</span> <span class="mf">0.10</span>             <span class="c1"># Assume we invest the difference in purchase price with a return of ror% annualized</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Lastly, let's consider rate of return for the difference in purchase price of our EV vs gas vehicle. If invested, this will give us a return over time.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Calculate-Yearly-Cash-Flows-from-Years-0---15">Calculate Yearly Cash Flows from Years 0 - 15<a class="anchor-link" href="#Calculate-Yearly-Cash-Flows-from-Years-0---15">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now that we've set up our cost factors, let's calculate our yearly expenses for both vehicles.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[115]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Initialize numpy arrays for cash flows</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">gas_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">ev_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="c1"># Add purchase prices in year 0</span>
+<span class="n">gas_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gas_arr</span><span class="p">,</span> <span class="n">gas_purch</span><span class="p">)</span>
+<span class="n">ev_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ev_arr</span><span class="p">,</span> <span class="n">ev_purch</span><span class="p">)</span>
+
+<span class="c1"># Calculate yearly cash flows</span>
+<span class="n">gas_cashflow</span> <span class="o">=</span> <span class="p">((</span><span class="n">yearly_mi</span> <span class="o">/</span> <span class="n">gas_mpg</span><span class="p">)</span> <span class="o">*</span> <span class="n">gas_per_gal</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">gas_maint</span> <span class="o">*</span> <span class="n">yearly_mi</span><span class="p">)</span> 
+<span class="n">ev_cashflow</span> <span class="o">=</span> <span class="p">(</span><span class="n">yearly_mi</span> <span class="o">*</span> <span class="n">charge_cpm</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">ev_maint</span> <span class="o">*</span> <span class="n">yearly_mi</span><span class="p">)</span> 
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Gas vehicle costs $&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:,.0f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gas_cashflow</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; per year.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;EV  vehicle costs $&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:,.0f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ev_cashflow</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; per year.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;EV  savings are   $&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:,.0f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gas_cashflow</span> <span class="o">-</span> <span class="n">ev_cashflow</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; per year.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Append cash flows into lists for next 15 years</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">):</span>
+    <span class="n">gas_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gas_arr</span><span class="p">,</span> <span class="n">gas_cashflow</span><span class="p">)</span>
+    <span class="n">ev_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ev_arr</span><span class="p">,</span> <span class="n">ev_cashflow</span><span class="p">)</span>
+
+<span class="n">year_diff</span> <span class="o">=</span> <span class="n">ev_list</span> <span class="o">-</span> <span class="n">gas_list</span>   
+<span class="nb">print</span><span class="p">(</span><span class="n">year_diff</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Gas vehicle costs $4,294 per year.
+EV  vehicle costs $1,780 per year.
+EV  savings are   $2,513 per year.
+
+[14540.         -2513.11111111 -2513.11111111 -2513.11111111
+ -2513.11111111 -2513.11111111 -2513.11111111 -2513.11111111
+ -2513.11111111 -2513.11111111 -2513.11111111 -2513.11111111
+ -2513.11111111 -2513.11111111 -2513.11111111 -2513.11111111]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It looks like choosing an EV will save us money over time, as it costs $2,513.11 less to maintain and operate per year. How long until we recoup our initial investment however? Let's take a look at the cumulative savings by year.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Calculate-Cumulative-Savings-every-year">Calculate Cumulative Savings every year<a class="anchor-link" href="#Calculate-Cumulative-Savings-every-year">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[112]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cum_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">nditer</span><span class="p">(</span><span class="n">year_diff</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="n">val</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">val</span> <span class="o">=</span> <span class="p">(</span><span class="n">val</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">ror</span><span class="p">))</span> <span class="o">+</span> <span class="n">i</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Year &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; savings are &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;$</span><span class="si">{:,.0f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">val</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">)))</span>
+    <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">cum_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cum_diff</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Year 0 savings are $-14,540
+Year 1 savings are $-13,481
+Year 2 savings are $-12,316
+Year 3 savings are $-11,034
+Year 4 savings are $-9,625
+Year 5 savings are $-8,074
+Year 6 savings are $-6,368
+Year 7 savings are $-4,492
+Year 8 savings are $-2,428
+Year 9 savings are $-158
+Year 10 savings are $2,340
+Year 11 savings are $5,087
+Year 12 savings are $8,108
+Year 13 savings are $11,432
+Year 14 savings are $15,089
+Year 15 savings are $19,111
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It takes just shy of 10 years for us to break even, meaning an EV might be a good investment if we were to drive it for at least that long. This does not consider what would happen if we were to sell the vehicle, so let's take a closer look at the difference with the sale price considered.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Account-for-Sale-Price-after-Depreciation">Account for Sale Price after Depreciation<a class="anchor-link" href="#Account-for-Sale-Price-after-Depreciation">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[120]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Initialize numpy arrays for vehicle sales price by year</span>
+<span class="n">gas_sp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">ev_sp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="c1"># Apply depreciation rate every year</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
+    <span class="n">gas_new_price</span> <span class="o">=</span> <span class="n">gas_purch</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">gas_depr</span><span class="p">)</span> <span class="o">**</span> <span class="n">i</span>
+    <span class="n">ev_new_price</span> <span class="o">=</span> <span class="n">ev_purch</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">ev_depr</span><span class="p">)</span> <span class="o">**</span> <span class="n">i</span>
+    <span class="n">gas_sp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gas_sp</span><span class="p">,</span> <span class="n">gas_new_price</span><span class="p">)</span>
+    <span class="n">ev_sp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ev_sp</span><span class="p">,</span> <span class="n">ev_new_price</span><span class="p">)</span>
+    
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sales Values of Gas Vehicle: &quot;</span><span class="p">)</span>    
+<span class="nb">print</span><span class="p">(</span><span class="n">gas_sp</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sales Values of EV Vehicle: &quot;</span><span class="p">)</span>    
+<span class="nb">print</span><span class="p">(</span><span class="n">ev_sp</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Sales Values of Gas Vehicle: 
+[33950.         29536.5        25696.755      22356.17685
+ 19449.8738595  16921.39025777 14721.60952426 12807.8002861
+ 11142.78624891  9694.22403655  8433.9749118   7337.55817327
+  6383.67561074  5553.79778134  4831.80406977  4203.6695407 ]
+
+Sales Values of EV Vehicle: 
+[48490.         41216.5        35034.025      29778.92125
+ 25312.0830625  21515.27060312 18287.98001266 15544.78301076
+ 13213.06555914 11231.10572527  9546.43986648  8114.47388651
+  6897.30280353  5862.707383    4983.30127555  4235.80608422]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here we calculate the sales values for the vehicles by year.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[125]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp_diff</span> <span class="o">=</span> <span class="n">ev_sp</span> <span class="o">-</span> <span class="n">gas_sp</span>
+<span class="n">cum_diff_revised</span> <span class="o">=</span> <span class="n">cum_diff</span> <span class="o">-</span> <span class="n">sp_diff</span>
+
+<span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">nditer</span><span class="p">(</span><span class="n">cum_diff_revised</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Year &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; revised savings are &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;$</span><span class="si">{:,.0f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">)))</span>
+    <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Year 0 revised savings are $-0
+Year 1 revised savings are $-1,801
+Year 2 revised savings are $-2,979
+Year 3 revised savings are $-3,612
+Year 4 revised savings are $-3,762
+Year 5 revised savings are $-3,480
+Year 6 revised savings are $-2,802
+Year 7 revised savings are $-1,755
+Year 8 revised savings are $-358
+Year 9 revised savings are $1,379
+Year 10 revised savings are $3,452
+Year 11 revised savings are $5,863
+Year 12 revised savings are $8,622
+Year 13 revised savings are $11,741
+Year 14 revised savings are $15,240
+Year 15 revised savings are $19,143
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now that we've considered the sale price, our break even point moves up slightly. It takes nearly 9 years for the EV savings to outweigh the higher initial cost.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If you've made it this far, thanks for sticking around to the end! This article has been full of assumptions and limited options, so I'm sure some of you might be kicking and screaming. For instance, are luxury sedans really are only options? What does our break even point look like if we were to compare a Nissan Leaf or Chevy Bolt EV compared to a Toyota Camry or Ford Fusion? And how accurate (and consistent) were our cost factors anyway?
 &nbsp;</p>
-<p><a href="https://fastdatascientist.github.io/Digging-Beneath-the-Surface//posts/US+National+Park+Optimal+Route.html">US National Park Optimal Route</a></p>
-<p>&nbsp;</p>
-<h3 id="March-2018">March 2018<a class="anchor-link" href="#March-2018">&#182;</a></h3><p><a href="https://fastdatascientist.github.io/Digging-Beneath-the-Surface//posts/Fantasy+Baseball+Parameter+Optimization.html">Parameter Optimization for Bill Bergen Fantasy Baseball</a></p>
-<p>&nbsp;</p>
-<h3 id="February-2018">February 2018<a class="anchor-link" href="#February-2018">&#182;</a></h3><p><a href="https://fastdatascientist.github.io/Digging-Beneath-the-Surface//posts/MLB+2017+simulation.html">Major League Baseball Predictions</a></p>
+<p>All those questions aside, this was still a fun problem to analyze. As the number of EV options increase in the near future, I'll certainly revisit this analysis with updated considerations. For now, let's cross our fingers for gas prices to drop back down!
+&nbsp;</p>
+<p>Thanks again for reading, and tune in for the next post in late August!
+&nbsp;</p>
+<p>Until next time,</p>
+<p>&nbsp;
+Ben</p>
 
 </div>
 </div>
@@ -14985,6 +15505,10 @@ div#notebook {
 </body>
 
  
+
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {}, "version_major": 2, "version_minor": 0}
+</script>
 
 
 </html>
